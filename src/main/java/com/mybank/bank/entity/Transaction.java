@@ -3,12 +3,10 @@ package com.mybank.bank.entity;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
