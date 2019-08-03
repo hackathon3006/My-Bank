@@ -3,6 +3,7 @@ package com.mybank.bank.serviceimpl;
 import java.sql.SQLDataException;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -15,6 +16,7 @@ import com.mybank.bank.exception.CustomException;
 import com.mybank.bank.repository.TransactionRepository;
 import com.mybank.bank.service.AccountService;
 import com.mybank.bank.service.TransactionService;
+import com.mybank.bank.utils.BankValidationUtils;
 
 @Service
 public class TransactionServiceImpl implements TransactionService {
@@ -24,14 +26,23 @@ public class TransactionServiceImpl implements TransactionService {
 
 	@Autowired
 	TransactionRepository transactionRepository;
+	
+	@Autowired
+	BankValidationUtils bankValidationUtils;
 
 	@Override
 	@Transactional
 	public Long transfer(Long fromAccountNumber, Long toAccountNumber, Double amount, String remarks) throws CustomException, SQLDataException 
 	{
+		
+		if(amount <= 0)
+			throw new CustomException("Transaction Amount should be greater than 0-4000");
+		
 		Account fromAccount= accountService.getAccountByAccountNumber(fromAccountNumber);
 		
 		Account toAccount = accountService.getAccountByAccountNumber(toAccountNumber);
+		
+		bankValidationUtils.checkMinimumBalanceAndLimitBalanceForDebit(fromAccount, amount);
 
 		Transaction creditTransaction = new Transaction();
 
@@ -66,10 +77,17 @@ public class TransactionServiceImpl implements TransactionService {
 		return debitedTransaction.getTransactionId();
 	}
 
-	public List<Transaction> getAllBetweenDates(LocalDateTime startDate, LocalDateTime endDate) {
+	public List<Transaction> getAllBetweenDates(Account fromAccount, String transactionType, LocalDateTime fromDate, LocalDateTime toDate, String status) {
 
-		return transactionRepository.getAllBetweenDates(startDate, endDate);
+		List<Transaction> transactionList= null;
+		 Optional<List<Transaction>> optionalList = transactionRepository.findByFromAccountAndTransactionTypeAndTransactionDateAndTransactionDateAndStatus(fromAccount, transactionType, fromDate, toDate, status);
+		 
+		 boolean isOptionalPresent = optionalList.isPresent();
 
+			if(isOptionalPresent)
+				transactionList =  optionalList.get();
+			
+			return transactionList;
 	}
 
 }
