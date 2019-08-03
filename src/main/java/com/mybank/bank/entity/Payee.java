@@ -9,8 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
-import org.hibernate.annotations.ManyToAny;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -28,9 +26,9 @@ public class Payee implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long payeeId;
 	
-	private Long payerAccountNumber;
+	private Account payerAccountNumber;
 	
-	private Long payeeAccountNumber;
+	private Account payeeAccountNumber;
 	
 	private String status;
 	

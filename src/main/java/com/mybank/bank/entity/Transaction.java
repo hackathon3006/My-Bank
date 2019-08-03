@@ -3,11 +3,11 @@ package com.mybank.bank.entity;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import lombok.AllArgsConstructor;
@@ -38,8 +38,11 @@ public class Transaction implements Serializable{
 	
 	private String remarks;
 	
-
+	@ManyToOne
+	@JoinColumn(name = "from_account_id")
 	private Account fromAccount;
 	
+	@ManyToOne
+	@JoinColumn(name = "to_account_id")
 	private Account toAccount;
 }

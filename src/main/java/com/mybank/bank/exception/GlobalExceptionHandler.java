@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import com.mybank.bank.model.ResponseData;
 
 
 
@@ -27,21 +28,22 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 			HttpHeaders headers, HttpStatus status, WebRequest request) 
 	{
 		List<String> errorList = new ArrayList<>();
-		
+
 		for(ObjectError error : ex.getBindingResult().getAllErrors())
 		{
 			errorList.add(error.getDefaultMessage());
 		}
-		
+
 		Map<Integer, String> responseStatus = new HashMap<>();
 		responseStatus.put(300, "INVALID");
 		ResponseData response = new ResponseData(ex.getMessage(), responseStatus, errorList);
-		
+
 		return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
 	}
-	
+
 	@ExceptionHandler(CustomException.class)
 	public final ResponseEntity<Object> handleAllExceptions(CustomException ex, WebRequest request) {
+
 		List<String> errorList = new ArrayList<>();
 		errorList.add(ex.getMessage());
 
@@ -52,8 +54,4 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 		return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
 
 	}
-	
-	
- 
-
 }
