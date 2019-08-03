@@ -4,6 +4,8 @@ import java.sql.SQLDataException;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,10 +26,11 @@ public class TransactionServiceImpl implements TransactionService {
 	TransactionRepository transactionRepository;
 
 	@Override
-	public Long transfer(Long fromAccountNumber, Long toAccountNumber, Double amount, String remarks)
-			throws CustomException, SQLDataException {
-		Account fromAccount = accountService.getAccountByAccountNumber(fromAccountNumber);
-
+	@Transactional
+	public Long transfer(Long fromAccountNumber, Long toAccountNumber, Double amount, String remarks) throws CustomException, SQLDataException 
+	{
+		Account fromAccount= accountService.getAccountByAccountNumber(fromAccountNumber);
+		
 		Account toAccount = accountService.getAccountByAccountNumber(toAccountNumber);
 
 		Transaction creditTransaction = new Transaction();
