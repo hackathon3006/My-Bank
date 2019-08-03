@@ -1,10 +1,8 @@
 package com.mybank.bank.model;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
-import com.mybank.bank.entity.Customer;
 import com.mybank.bank.entity.Transaction;
 
 import lombok.AllArgsConstructor;
@@ -17,7 +15,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AccountDetailsModel {
-	
+
 	private Long accountNumber;
 	private Double balance;
 	private LocalDate accountCreationDate;
