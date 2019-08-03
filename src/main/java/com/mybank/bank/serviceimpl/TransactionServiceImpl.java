@@ -31,7 +31,7 @@ public class TransactionServiceImpl implements TransactionService {
 
 	@Override
 	@Transactional
-	public Long transfer(Long fromAccountNumber, Long toAccountNumber, Double amount, String remarks) throws CustomException, SQLDataException 
+	public Long transfer(Long fromAccountNumber, Long toAccountNumber, Double amount, String remarks) throws CustomException 
 	{
 		
 		if(amount <= 0)
