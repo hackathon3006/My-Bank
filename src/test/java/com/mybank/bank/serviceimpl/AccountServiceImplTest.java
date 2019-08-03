@@ -2,6 +2,7 @@ package com.mybank.bank.serviceimpl;
 
 import static org.junit.Assert.assertNotNull;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -17,7 +18,6 @@ import com.mybank.bank.model.AccountDetailsModel;
 import com.mybank.bank.service.CustomerService;
 
 @RunWith(MockitoJUnitRunner.class)
-@SpringBootTest
 public class AccountServiceImplTest {
 
 	@InjectMocks
@@ -26,18 +26,24 @@ public class AccountServiceImplTest {
 	@Mock
 	CustomerService customerService;
 
-	@Test
+	@Before
+	public void setup() {
+
+	}
+
+	@Test 
 	public void getAccountDetails(Long customerId) throws CustomException {
-		Customer customer = new Customer();
+		Customer customer = new Customer(); 
 		Account account = new Account();
-		account.setAccountNumber(1234L);
+		account.setAccountNumber(1234L); 
 		account.setStatus("ACTIVE");
 		customer.setAccount(account);
 		Mockito.when(customerService.getCustomer(1L)).thenReturn(customer);
-		
-		AccountDetailsModel accountDetailModel = accountServiceImpl.getAccountDetails(1L);
-		assertNotNull(accountDetailModel);
+
+		AccountDetailsModel accountDetailModel =
+				accountServiceImpl.getAccountDetails(1L); assertNotNull(accountDetailModel);
 
 	}
+
 
 }

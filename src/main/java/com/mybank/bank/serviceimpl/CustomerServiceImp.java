@@ -23,8 +23,7 @@ public class CustomerServiceImp implements CustomerService{
 		Optional<Customer> customerOptional = customerRepository.findById(customerId);
 
 		if(customerOptional.isPresent()) {
-			Customer customer = customerOptional.get();
-			return customer;
+			return customerOptional.get();
 		} else throw new CustomException("Customer not found.");		
 	}
 	

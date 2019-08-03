@@ -2,13 +2,8 @@ package com.mybank.bank.model;
 
 import java.io.Serializable;
 
-import javax.persistence.CascadeType;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
-
 import org.springframework.stereotype.Component;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.mybank.bank.entity.Customer;
 
 import lombok.AllArgsConstructor;

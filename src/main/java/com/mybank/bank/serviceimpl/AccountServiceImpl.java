@@ -44,8 +44,6 @@ public class AccountServiceImpl implements AccountService {
 		accountDetailsModel.setBalance(customer.getAccount().getBalance());
 		accountDetailsModel.setAccountCreationDate(customer.getAccount().getCreationDate());
 
-		Pageable pageable = PageRequest.of(0, 10, new Sort(Sort.Direction.DESC, "tran"));
-
 		Collections.reverse(customer.getAccount().getTransactionList());
 		accountDetailsModel.setTransactionList(customer.getAccount().getTransactionList().subList(0, 10));
 

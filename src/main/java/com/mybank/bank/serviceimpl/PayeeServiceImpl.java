@@ -26,7 +26,7 @@ public class PayeeServiceImpl implements PayeeService {
 	@Override
 	public List<Payee> getPayeeByCustomerId(Long customerId) throws CustomException {
 
-		List<Payee> findPayeeByPayerAccountId = new ArrayList<Payee>();
+		List<Payee> findPayeeByPayerAccountId = new ArrayList<>();
 
 		Customer customer = customerService.getCustomer(customerId);
 
