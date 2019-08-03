@@ -8,7 +8,7 @@ import com.mybank.bank.entity.Customer;
 
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer, Long>, PagingAndSortingRepository<Customer, Long>{
-	
+
 	Customer findByCustomerIdAndPasswordAndStatus(Long customerId, String password,String status);
 
 }

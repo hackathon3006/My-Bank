@@ -4,10 +4,10 @@ import java.sql.SQLDataException;
 import java.util.Collections;
 import java.util.Optional;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.mybank.bank.entity.Account;
@@ -31,7 +31,7 @@ public class AccountServiceImpl implements AccountService {
 
 	@Autowired
 	CustomerService customerService;
-	
+
 	@Autowired
 	CustomerRepository customerRepository;
 
@@ -43,11 +43,11 @@ public class AccountServiceImpl implements AccountService {
 		accountDetailsModel.setAccountNumber(customer.getAccount().getAccountNumber());
 		accountDetailsModel.setBalance(customer.getAccount().getBalance());
 		accountDetailsModel.setAccountCreationDate(customer.getAccount().getCreationDate());
-		
-		Pageable pageable = PageRequest.of(0, 10);
+
+		Pageable pageable = PageRequest.of(0, 10, new Sort(Sort.Direction.DESC, "tran"));
 
 		Collections.reverse(customer.getAccount().getTransactionList());
-		accountDetailsModel.setTransactionList(customer.getAccount().getTransactionList());
+		accountDetailsModel.setTransactionList(customer.getAccount().getTransactionList().subList(0, 10));
 
 		return accountDetailsModel;
 
