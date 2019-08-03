@@ -34,6 +34,8 @@ public class Account implements Serializable{
 	private LocalDate creationDate;
 	private Double balance;
 	private String status;
+	private Double minimumBalance;
+	private Double transactionLimit;
 	
 	@OneToOne
 	private Customer accountHolder;
