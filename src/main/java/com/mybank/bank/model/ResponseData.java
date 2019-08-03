@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 public class ResponseData {
    
-	public ResponseData(String string, HttpStatus ok, AccountDetailsModel accountDetailsModel) {
+	public ResponseData() {
 		// TODO Auto-generated constructor stub
 	}
 	private String message;

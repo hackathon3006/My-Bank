@@ -3,6 +3,8 @@ package com.mybank.bank.serviceimpl;
 import java.sql.SQLDataException;
 import java.time.LocalDateTime;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +25,7 @@ public class TransactionServiceImpl implements TransactionService
 	TransactionRepository transactionRepository;
 
 	@Override
+	@Transactional
 	public Long transfer(Long fromAccountNumber, Long toAccountNumber, Double amount, String remarks) throws CustomException, SQLDataException 
 	{
 		Account fromAccount= accountService.getAccountByAccountNumber(fromAccountNumber);
