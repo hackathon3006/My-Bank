@@ -75,9 +75,9 @@ public class TransactionController
 	
 	
 	@PostMapping("/transfer")
-	public ResponseEntity<?> fundTransfer(@RequestParam("fromAccountNumber") Long fromAccountNumber,
+	public ResponseEntity<ResponseData> fundTransfer(@RequestParam("fromAccountNumber") Long fromAccountNumber,
 			@RequestParam("toAccountNumber") Long toAccountNumber,
-			@RequestParam("amount") Double amount,@RequestParam("remarks") String remarks) throws Exception
+			@RequestParam("amount") Double amount,@RequestParam("remarks") String remarks) throws CustomException, SQLDataException
 	{
 		Long transactionId = transactionService.transfer(fromAccountNumber, toAccountNumber, amount, remarks);
 		
