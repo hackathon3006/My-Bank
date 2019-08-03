@@ -1,6 +1,5 @@
 package com.mybank.bank.serviceimpl;
 
-import java.sql.SQLDataException;
 import java.util.Collections;
 import java.util.Optional;
 
