@@ -32,7 +32,7 @@ public class AccountController {
 			response.setObject(accountDetailsModel);
 			response.setStatusCode(2000);
 			response.setStatusDesc("Successfull fetching of account details.");
-			return  new ResponseEntity<ResponseData> (response ,HttpStatus.OK);
+			return  new ResponseEntity<> (response ,HttpStatus.OK);
 		} else throw new CustomException("Account details are not present.");
 	}
 
@@ -47,8 +47,8 @@ public class AccountController {
 		response.setMessage("Account details are as follows: ");
 		response.setObject(accountSummary);
 		response.setStatusCode(2000);
-		response.setStatusDesc("Successfull fetching of account details.");
-		return  new ResponseEntity<ResponseData> (response ,HttpStatus.OK);
+		response.setStatusDesc("Successfully fetching of account details.");
+		return  new ResponseEntity<> (response ,HttpStatus.OK);
 
 	}
 }
