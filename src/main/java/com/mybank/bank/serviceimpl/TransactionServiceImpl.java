@@ -31,7 +31,7 @@ public class TransactionServiceImpl implements TransactionService {
 
 	@Override
 	@Transactional
-	public Long transfer(Long fromAccountNumber, Long toAccountNumber, Double amount, String remarks) throws Exception 
+	public Long transfer(Long fromAccountNumber, Long toAccountNumber, Double amount, String remarks) throws CustomException, SQLDataException 
 	{
 		
 		if(amount <= 0)
@@ -75,17 +75,20 @@ public class TransactionServiceImpl implements TransactionService {
 		return debitedTransaction.getTransactionId();
 	}
 
-	public List<Transaction> getAllBetweenDates(Account fromAccount, String transactionType, LocalDateTime fromDate, LocalDateTime toDate, String status) {
-
-		List<Transaction> transactionList= null;
-		 Optional<List<Transaction>> optionalList = transactionRepository.findByFromAccountAndTransactionTypeAndTransactionDateAndTransactionDateAndStatus(fromAccount, transactionType, fromDate, toDate, status);
-		 
-		 boolean isOptionalPresent = optionalList.isPresent();
-
-			if(isOptionalPresent)
-				transactionList =  optionalList.get();
-			
-			return transactionList;
-	}
+	
+	  public List<Transaction> getAllBetweenDates(Account fromAccount, String
+	  transactionType, LocalDateTime fromDate, LocalDateTime toDate)
+	  {
+	  
+	  List<Transaction> transactionList= null; Optional<List<Transaction>>
+	  optionalList = transactionRepository.getTodaysTransactionList(fromAccount,transactionType, fromDate, toDate);
+	  
+	  boolean isOptionalPresent = optionalList.isPresent();
+	  
+	  if(isOptionalPresent) transactionList = optionalList.get();
+	  
+	  return transactionList; 
+	  }
+	 
 
 }

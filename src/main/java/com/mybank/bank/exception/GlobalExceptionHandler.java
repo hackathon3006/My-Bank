@@ -1,9 +1,7 @@
 package com.mybank.bank.exception;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -52,32 +50,37 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 	}
 
 	@ExceptionHandler(CustomException.class)
-	public final ResponseEntity<ResponseData> handleAllExceptions(CustomException ex, WebRequest request) {
+	public final ResponseEntity<ResponseData> handleAllExceptions(CustomException ex) {
 
 		HttpStatus httpstatus = HttpStatus.BAD_REQUEST;
-
-		List<String> statusList = seprateCodes(ex.getMessage());
 		ResponseData response = new ResponseData();
-		if(statusList.get(1).equals(4000))
+		List<String> statusList = seprateCodes(ex.getMessage());
+		
+		if(statusList.get(1).contains("4000"))
 		{
+			
 			response.setMessage(statusList.get(0));
 			response.setStatusCode(Integer.valueOf(statusList.get(1)));
 			response.setStatusDesc("VALIDATION_FAILED");
 			response.setObject("");
-			
+			System.out.println(response);
 			httpstatus = HttpStatus.EXPECTATION_FAILED;
 			
 		}
-		if(statusList.get(1).equals(3000))
+		if(statusList.get(1).contains("3000"))
 		{
+			response = new ResponseData();
 			response.setMessage(statusList.get(0));
 			response.setStatusCode(Integer.valueOf(statusList.get(1)));
 			response.setStatusDesc("BAD_REQUEST");
 			response.setObject("");
 			
 			httpstatus = HttpStatus.BAD_REQUEST;
+			
 		}
+		
 		return new ResponseEntity<>(response, httpstatus);
+		
 
 		
 	}

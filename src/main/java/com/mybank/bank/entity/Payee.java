@@ -39,6 +39,10 @@ public class Payee implements Serializable {
 	private Long payerAccountId;
 
 	private Long payeeAccountId;
+	
+	private Long payerAccountNumber;
+
+	private Long payeeAccountNumber;
 
 	private String status;
 
