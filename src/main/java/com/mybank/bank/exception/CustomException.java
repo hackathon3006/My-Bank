@@ -27,4 +27,8 @@ public class CustomException extends Exception {
 		// TODO Auto-generated constructor stub
 	}
 
+	public CustomException(String string, int i, String string2, Long customerId) {
+		// TODO Auto-generated constructor stub
+	}
+
 }

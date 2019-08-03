@@ -10,4 +10,6 @@ public interface CustomerService {
 
 	public Customer getCustomer(Long customerId) throws CustomException;
 
+	public String login(Long customerId, String password, String status) throws CustomException;
+
 }

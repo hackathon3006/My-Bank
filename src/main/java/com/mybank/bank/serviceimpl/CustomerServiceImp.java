@@ -1,5 +1,6 @@
 package com.mybank.bank.serviceimpl;
 
+import java.util.Objects;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,5 +26,17 @@ public class CustomerServiceImp implements CustomerService{
 			Customer customer = customerOptional.get();
 			return customer;
 		} else throw new CustomException("Customer not found.");		
+	}
+	
+	@Override
+	public String login(Long customerId,String password,String status) throws CustomException {
+		Customer customer=customerRepository.findByCustomerIdAndPasswordAndStatus(customerId,password,status);
+		
+		if(Objects.isNull(customer)) {
+			throw new CustomException("Please enter vaild credentials..",3000,"BAD_REQUEST",customerId);
+		}
+		
+			return "Login Successfully...";
+		
 	}
 }

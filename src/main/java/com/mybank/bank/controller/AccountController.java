@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mybank.bank.exception.CustomException;
 import com.mybank.bank.model.AccountDetailsModel;
+import com.mybank.bank.model.AccountSummary;
 import com.mybank.bank.model.ResponseData;
 import com.mybank.bank.service.AccountService;
 
@@ -35,4 +36,19 @@ public class AccountController {
 		} else throw new CustomException("Account details are not present.");
 	}
 
+	
+
+	@GetMapping("/accountSummary")
+	public ResponseEntity<ResponseData> accountSummary(Long customerId) {
+
+		AccountSummary accountSummary = accountService.getAccountDetailsSummary(customerId);
+		
+		ResponseData response = new ResponseData();
+		response.setMessage("Account details are as follows: ");
+		response.setObject(accountSummary);
+		response.setStatusCode(2000);
+		response.setStatusDesc("Successfull fetching of account details.");
+		return  new ResponseEntity<ResponseData> (response ,HttpStatus.OK);
+
+	}
 }
