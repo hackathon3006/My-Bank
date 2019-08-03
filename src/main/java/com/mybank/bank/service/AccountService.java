@@ -16,5 +16,5 @@ public interface AccountService
 
 	public void updateBalance(Account fromAccount) throws SQLDataException;
 	
-	public AccountDetailsModel getAccountDetails(Long customerId);
+	public AccountDetailsModel getAccountDetails(Long customerId) throws CustomException;
 }

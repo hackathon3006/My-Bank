@@ -29,7 +29,7 @@ public class AccountServiceImpl implements AccountService {
 	@Autowired
 	CustomerService customerService;
 
-	public AccountDetailsModel getAccountDetails(Long customerId) {
+	public AccountDetailsModel getAccountDetails(Long customerId) throws CustomException {
 		AccountDetailsModel accountDetailsModel = new AccountDetailsModel();
 
 		Customer customer = customerService.getCustomer(customerId);

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mybank.bank.exception.CustomException;
 import com.mybank.bank.model.AccountDetailsModel;
 import com.mybank.bank.model.ResponseData;
 import com.mybank.bank.service.AccountService;
@@ -21,10 +22,10 @@ public class AccountController {
 
 	@SuppressWarnings("unchecked")
 	@GetMapping("/details")
-	public ResponseEntity<ResponseData> fetchAccountDetails(@PathVariable(name = "customerId") Long customerId){
+	public ResponseEntity<ResponseData> fetchAccountDetails(@PathVariable(name = "customerId") Long customerId) throws CustomException{
 		AccountDetailsModel accountDetailsModel = accountService.getAccountDetails(customerId);
 
-		ResponseData response = new ResponseData("", HttpStatus.OK, accountDetailsModel);
+		//ResponseData response = new ResponseData("", HttpStatus.OK, accountDetailsModel);
 
 		return new ResponseEntity(HttpStatus.OK);
 	}
