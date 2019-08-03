@@ -4,10 +4,12 @@ import java.io.Serializable;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,6 +19,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
+@Table(name = "payee")
 public class Payee implements Serializable{
 	
 	
@@ -26,13 +29,14 @@ public class Payee implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long payeeId;
 	
-	private Account payerAccountNumber;
+	private Account payerAccountId;
 	
-	private Account payeeAccountNumber;
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private Account payeeAccountId;
 	
 	private String status;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Customer customer;
 	
 	
