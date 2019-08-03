@@ -3,7 +3,9 @@ package com.mybank.bank.exception;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.Map;import java.util.stream.Collector;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -34,11 +36,19 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 			errorList.add(error.getDefaultMessage());
 		}
 
-		Map<Integer, String> responseStatus = new HashMap<>();
-		responseStatus.put(300, "INVALID");
-		ResponseData response = new ResponseData(ex.getMessage(), responseStatus, errorList);
+		ResponseData response = new ResponseData();
+		response.setMessage(ex.getMessage());
+		response.setStatusCode(3000);
+		response.setStatusDesc("BAD_REQUEST");
+		response.setObject("");
 
 		return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+	}
+
+	private List<String> seprateCodes(String message) {
+		return Stream.of(message.split("-")).map(elem -> new StringBuilder(elem).toString())
+				.collect(Collectors.toList());
+		
 	}
 
 	@ExceptionHandler(CustomException.class)
@@ -47,10 +57,12 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 		List<String> errorList = new ArrayList<>();
 		errorList.add(ex.getMessage());
 
-		Map<Integer, String> responseStatus = new HashMap<>();
-		responseStatus.put(300, "INVALID");
-		ResponseData response = new ResponseData(ex.getMessage(), responseStatus, errorList);
-
+		List<String> statusList = seprateCodes(ex.getMessage());
+		ResponseData response = new ResponseData();
+		response.setMessage(statusList.get(0));
+		response.setStatusCode(Integer.valueOf(statusList.get(1)));
+		response.setStatusDesc("BAD_REQUEST");
+		response.setObject("");
 		return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
 
 	}
