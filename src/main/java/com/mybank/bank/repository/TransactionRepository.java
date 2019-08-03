@@ -15,12 +15,15 @@ import com.mybank.bank.entity.Transaction;
 public interface TransactionRepository extends JpaRepository<Transaction, Long>{
 
 	
-	@Query(value = "from Transaction t where transactionDate BETWEEN :startDate AND :endDate")
-	public List<Transaction> getAllBetweenDates(LocalDateTime startDate, LocalDateTime endDate);
 	
-	
-	public Optional<List<Transaction>> findByFromAccountAndTransactionTypeAndTransactionDateAndTransactionDateAndStatus(Account account, String transactionType, LocalDateTime fromDate, LocalDateTime toDate,String status);
-	
+	  @Query(value =
+	  "from Transaction t where transactionDate BETWEEN :startDate AND :endDate")
+	  public List<Transaction> getAllBetweenDates(LocalDateTime startDate,
+	  LocalDateTime endDate);
+	  
+	  @Query(value =" from Transaction t where fromAccount =:account and transactionType =:transactionType and (transactionDate between :fromDate AND :toDate)") 
+	  public Optional<List<Transaction>> getTodaysTransactionList(Account account, String transactionType, LocalDateTime fromDate, LocalDateTime toDate);
+	  
 	 
 
 }

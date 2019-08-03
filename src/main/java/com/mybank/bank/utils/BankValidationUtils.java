@@ -2,7 +2,9 @@ package com.mybank.bank.utils;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -22,14 +24,13 @@ public class BankValidationUtils {
 
 			Double todaysSumAmount = 0d;
 
-			LocalDateTime fromDate = LocalDate.now().atStartOfDay();
-			LocalDateTime toDate = LocalDate.now().atTime(23, 59, 59);
-			List<Transaction> transactionListByDate = transactionService.getAllBetweenDates(account, "DEBIT", fromDate, toDate, "ACTIVE");
-
-			
-			if(null != transactionListByDate)
+			LocalDateTime fromDate = LocalDateTime.of(LocalDate.now(), LocalTime.of(0, 0, 0));
+			LocalDateTime toDate = LocalDateTime.of(LocalDate.now(), LocalTime.of(23, 59, 59));
+			List<Transaction> transactionList = transactionService.getAllBetweenDates(account,"DEBIT",fromDate, toDate);
+					
+			if(null != transactionList)
 			{
-				for (Transaction transaction : transactionListByDate) 
+				for (Transaction transaction : transactionList) 
 				{
 					todaysSumAmount = todaysSumAmount + transaction.getAmount();
 				}
@@ -38,7 +39,7 @@ public class BankValidationUtils {
 				{
 					throw new CustomException("Exceeded Daily transaction limit-4000");
 				}
-				if ((account.getBalance() - txnAmount) > account.getMinimumBalance())
+				if ((account.getBalance() - txnAmount) < account.getMinimumBalance())
 				{
 					throw new CustomException("Insufficient Balance-4000");
 				}
