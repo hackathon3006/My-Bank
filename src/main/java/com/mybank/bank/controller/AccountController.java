@@ -3,6 +3,7 @@ package com.mybank.bank.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,13 +21,18 @@ public class AccountController {
 	@Autowired
 	AccountService accountService;
 
-	@SuppressWarnings("unchecked")
-	@GetMapping("/details")
+	
+	@GetMapping("/details/{customerId}")
 	public ResponseEntity<ResponseData> fetchAccountDetails(@PathVariable(name = "customerId") Long customerId) throws CustomException{
 		AccountDetailsModel accountDetailsModel = accountService.getAccountDetails(customerId);
-
-		//ResponseData response = new ResponseData("", HttpStatus.OK, accountDetailsModel);
-
-		return new ResponseEntity(HttpStatus.OK);
+		if(!ObjectUtils.isEmpty(accountDetailsModel)) {
+			ResponseData response = new ResponseData();
+			response.setMessage("Account details are as follows: ");
+			response.setObject(response);
+			response.setStatusCode(2000);
+			response.setStatusDesc("Successfull fetching of account details.");
+			return  new ResponseEntity<ResponseData> (response ,HttpStatus.OK);
+		} else throw new CustomException("Account details are not present.");
 	}
+
 }

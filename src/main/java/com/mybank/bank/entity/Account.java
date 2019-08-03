@@ -11,7 +11,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.Getter;
@@ -37,8 +36,6 @@ public class Account implements Serializable{
 	private Double minimumBalance;
 	private Double transactionLimit;
 	
-	@OneToOne
-	private Customer accountHolder;
 	
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "fromAccount")
 	List<Transaction> transactionList;
