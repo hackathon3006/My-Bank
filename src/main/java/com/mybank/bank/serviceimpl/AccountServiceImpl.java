@@ -63,7 +63,7 @@ public class AccountServiceImpl implements AccountService {
 	}
 
 	@Override
-	public void updateBalance(Account account)throws SQLDataException {
+	public void updateBalance(Account account) {
 		accountRepository.save(account);
 	}
 

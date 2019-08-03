@@ -1,7 +1,5 @@
 package com.mybank.bank.service;
 
-import java.sql.SQLDataException;
-
 import org.springframework.stereotype.Service;
 
 import com.mybank.bank.entity.Account;
@@ -15,7 +13,7 @@ public interface AccountService
 
 	public Account getAccountByAccountNumber(Long accountNumber) throws CustomException;
 
-	public void updateBalance(Account fromAccount) throws SQLDataException;
+	public void updateBalance(Account fromAccount);
 
 	public AccountDetailsModel getAccountDetails(Long customerId) throws CustomException;
 
