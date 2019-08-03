@@ -29,10 +29,9 @@ public class Payee implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long payeeId;
 	
-	private Account payerAccountId;
+	private Long payerAccountId;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private Account payeeAccountId;
+	private Long payeeAccountId;
 	
 	private String status;
 	

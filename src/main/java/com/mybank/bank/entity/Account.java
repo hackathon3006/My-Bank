@@ -14,8 +14,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -45,7 +43,5 @@ public class Account implements Serializable{
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "fromAccount")
 	List<Transaction> transactionList;
 	
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "payeeAccountId")
-	List<Account> payeeList;
 
 }
