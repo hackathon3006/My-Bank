@@ -15,6 +15,7 @@ import com.mybank.bank.exception.CustomException;
 import com.mybank.bank.repository.TransactionRepository;
 import com.mybank.bank.service.AccountService;
 import com.mybank.bank.service.TransactionService;
+import com.mybank.bank.utils.BankValidationUtils;
 
 @Service
 public class TransactionServiceImpl implements TransactionService {
@@ -24,14 +25,20 @@ public class TransactionServiceImpl implements TransactionService {
 
 	@Autowired
 	TransactionRepository transactionRepository;
+	
+	@Autowired
+	BankValidationUtils bankValidationUtils;
 
 	@Override
 	@Transactional
-	public Long transfer(Long fromAccountNumber, Long toAccountNumber, Double amount, String remarks) throws CustomException, SQLDataException 
+	public Long transfer(Long fromAccountNumber, Long toAccountNumber, Double amount, String remarks) throws Exception 
 	{
 		Account fromAccount= accountService.getAccountByAccountNumber(fromAccountNumber);
 		
 		Account toAccount = accountService.getAccountByAccountNumber(toAccountNumber);
+		
+		
+		bankValidationUtils.checkMinimumBalanceAndLimitBalanceForDebit(fromAccount, amount);
 
 		Transaction creditTransaction = new Transaction();
 

@@ -12,7 +12,7 @@ import com.mybank.bank.exception.CustomException;
 @Service
 public interface TransactionService {
 	
-	Long transfer(Long fromAccountNumber, Long toAccountNumber, Double amount, String remarks) throws CustomException, SQLDataException;
+	Long transfer(Long fromAccountNumber, Long toAccountNumber, Double amount, String remarks) throws CustomException, SQLDataException, Exception;
 	public List<Transaction> getAllBetweenDates(LocalDateTime startDate, LocalDateTime endDate);
 	
 

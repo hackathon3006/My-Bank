@@ -36,6 +36,7 @@ public class Account implements Serializable{
 	private Double minimumBalance;
 	private Double transactionLimit;
 
+	
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "fromAccount")
 	List<Transaction> transactionList;
 	
