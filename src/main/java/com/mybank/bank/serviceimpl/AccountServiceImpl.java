@@ -6,6 +6,8 @@ import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.mybank.bank.entity.Account;
@@ -41,6 +43,9 @@ public class AccountServiceImpl implements AccountService {
 		accountDetailsModel.setAccountNumber(customer.getAccount().getAccountNumber());
 		accountDetailsModel.setBalance(customer.getAccount().getBalance());
 		accountDetailsModel.setAccountCreationDate(customer.getAccount().getCreationDate());
+		
+		Pageable pageable = PageRequest.of(0, 10);
+
 		Collections.reverse(customer.getAccount().getTransactionList());
 		accountDetailsModel.setTransactionList(customer.getAccount().getTransactionList());
 

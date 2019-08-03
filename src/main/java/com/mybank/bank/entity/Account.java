@@ -13,6 +13,9 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,11 +23,11 @@ import lombok.Setter;
 @Getter
 @Setter
 @Table(name = "account")
-public class Account implements Serializable{
-
+@JsonIgnoreProperties({ "transactionList" })
+public class Account implements Serializable {
 
 	private static final long serialVersionUID = 6397635543008657393L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long accountId;
@@ -37,8 +40,8 @@ public class Account implements Serializable{
 	private Double transactionLimit;
 
 	
+	@JsonProperty(value = "transactionList")
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "fromAccount")
 	List<Transaction> transactionList;
-	
 
 }

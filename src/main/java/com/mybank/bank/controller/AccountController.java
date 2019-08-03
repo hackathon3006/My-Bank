@@ -26,14 +26,14 @@ public class AccountController {
 	@GetMapping("/details/{customerId}")
 	public ResponseEntity<ResponseData> fetchAccountDetails (@PathVariable(value = "customerId") Long customerId) throws CustomException{
 		AccountDetailsModel accountDetailsModel = accountService.getAccountDetails(customerId);
-		//if(!ObjectUtils.isEmpty(accountDetailsModel)) {
+		if(!ObjectUtils.isEmpty(accountDetailsModel)) {
 			ResponseData response = new ResponseData();
 			response.setMessage("Account details are as follows: ");
-			response.setObject(response);
+			response.setObject(accountDetailsModel);
 			response.setStatusCode(2000);
 			response.setStatusDesc("Successfull fetching of account details.");
 			return  new ResponseEntity<ResponseData> (response ,HttpStatus.OK);
-		//} else throw new CustomException("Account details are not present.");
+		} else throw new CustomException("Account details are not present.");
 	}
 
 	

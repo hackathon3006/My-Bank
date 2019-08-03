@@ -10,6 +10,9 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,6 +20,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Table(name = "customer")
+@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class, property="@customerId")
 public class Customer implements Serializable{
 
 	private static final long serialVersionUID = 8376843488205294905L;

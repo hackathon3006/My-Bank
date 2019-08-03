@@ -13,6 +13,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,6 +27,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @Table(name = "transaction")
+@JsonIgnoreProperties({ "from_account_id", "to_account_id"})
+
 public class Transaction implements Serializable{
 
 
@@ -42,12 +47,14 @@ public class Transaction implements Serializable{
 	private String status;
 
 	private String remarks;
-	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+
+	@JsonProperty(value = "from_account_id")
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "from_account_id")
 	private Account fromAccount;
-	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+
+	@JsonProperty(value = "to_account_id")
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "to_account_id")
 	private Account toAccount;
 }
