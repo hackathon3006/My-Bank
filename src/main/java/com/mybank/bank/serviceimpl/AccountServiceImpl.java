@@ -30,6 +30,7 @@ public class AccountServiceImpl implements AccountService {
 	@Autowired
 	CustomerService customerService;
 	
+	@Autowired
 	CustomerRepository customerRepository;
 
 	public AccountDetailsModel getAccountDetails(Long customerId) throws CustomException {
@@ -72,7 +73,10 @@ public class AccountServiceImpl implements AccountService {
 		Optional<Customer> optionalCustomer = customerRepository.findById(customerId);
 		AccountSummary accountSummary = new AccountSummary();
 		Customer customer = optionalCustomer.get();
-		BeanUtils.copyProperties(customer, accountSummary);
+		accountSummary.setCustomerName(customer.getCustomerName());
+		accountSummary.setAccountNumber(customer.getAccount().getAccountNumber());
+		accountSummary.setBalance(customer.getAccount().getBalance());
+		accountSummary.setAccountType(customer.getAccount().getAccountType());
 		return accountSummary;
 
 	}

@@ -38,8 +38,8 @@ public class AccountController {
 
 	
 
-	@GetMapping("/accountSummary")
-	public ResponseEntity<ResponseData> accountSummary(Long customerId) {
+	@GetMapping("/accountSummary/{customer_id}")
+	public ResponseEntity<ResponseData> accountSummary(@PathVariable("customer_id")Long customerId) {
 
 		AccountSummary accountSummary = accountService.getAccountDetailsSummary(customerId);
 		

@@ -14,7 +14,7 @@ import com.mybank.bank.model.ResponseData;
 import com.mybank.bank.service.CustomerService;
 
 @RestController
-@CrossOrigin
+@CrossOrigin(origins = "*")
 @RequestMapping("/customer")
 public class CustomerController {
 
