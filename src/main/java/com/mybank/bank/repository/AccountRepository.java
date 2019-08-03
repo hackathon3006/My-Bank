@@ -10,15 +10,6 @@ import com.mybank.bank.entity.Account;
 @Repository
 public interface AccountRepository extends JpaRepository<Account, Long>{
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	public Optional<Account> findByAccountNumberAndStatus(Long accountNumber, String status);
+public Optional<Account> findByAccountNumberAndStatus(Long accountNumber, String status);
 
 }
