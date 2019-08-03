@@ -72,12 +72,14 @@ public class AccountServiceImpl implements AccountService {
 
 		Optional<Customer> optionalCustomer = customerRepository.findById(customerId);
 		AccountSummary accountSummary = new AccountSummary();
+		if(optionalCustomer.isPresent()) {
 		Customer customer = optionalCustomer.get();
 		accountSummary.setCustomerName(customer.getCustomerName());
 		accountSummary.setAccountNumber(customer.getAccount().getAccountNumber());
 		accountSummary.setBalance(customer.getAccount().getBalance());
 		accountSummary.setAccountType(customer.getAccount().getAccountType());
+		
+		}
 		return accountSummary;
-
 	}
 }
