@@ -3,6 +3,7 @@ package com.mybank.bank.controller;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -30,6 +31,7 @@ public class TestAccountController {
 	AccountSummary accountSummary;
 	Customer customer;
 	
+	@Before
 	public void setup() {
 		
 		customer=new Customer();
