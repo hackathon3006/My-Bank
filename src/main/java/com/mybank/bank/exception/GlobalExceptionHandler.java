@@ -10,7 +10,6 @@ import java.util.stream.Stream;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -23,7 +22,7 @@ import com.mybank.bank.model.ResponseData;
 
 
 @ControllerAdvice
-public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
+public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {/*
 
 	@Override
 	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
@@ -31,6 +30,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 	{
 		List<String> errorList = new ArrayList<>();
 
+		
 		for(ObjectError error : ex.getBindingResult().getAllErrors())
 		{
 			errorList.add(error.getDefaultMessage());
@@ -65,5 +65,8 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 		response.setObject("");
 		return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
 
+		
+		return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);*/
 	}
-}
+	
+

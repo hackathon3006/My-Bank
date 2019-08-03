@@ -26,22 +26,21 @@ import lombok.Setter;
 @Table(name = "transaction")
 public class Transaction implements Serializable{
 
-	
+
 	private static final long serialVersionUID = -1070881664837605036L;
-	
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long transactionId;
-	
+
 	private Double amount;
-	
+
 	private LocalDateTime transactionDate;
-	
+
 	private String transactionType;
-	
+
 	private String status;
-	
+
 	private String remarks;
 	
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
