@@ -22,7 +22,7 @@ import com.mybank.bank.model.ResponseData;
 
 
 @ControllerAdvice
-public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {/*
+public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
 	@Override
 	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
@@ -52,21 +52,35 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {/*
 	}
 
 	@ExceptionHandler(CustomException.class)
-	public final ResponseEntity<Object> handleAllExceptions(CustomException ex, WebRequest request) {
+	public final ResponseEntity<ResponseData> handleAllExceptions(CustomException ex, WebRequest request) {
 
-		List<String> errorList = new ArrayList<>();
-		errorList.add(ex.getMessage());
+		HttpStatus httpstatus = HttpStatus.BAD_REQUEST;
 
 		List<String> statusList = seprateCodes(ex.getMessage());
 		ResponseData response = new ResponseData();
-		response.setMessage(statusList.get(0));
-		response.setStatusCode(Integer.valueOf(statusList.get(1)));
-		response.setStatusDesc("BAD_REQUEST");
-		response.setObject("");
-		return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+		if(statusList.get(1).equals(4000))
+		{
+			response.setMessage(statusList.get(0));
+			response.setStatusCode(Integer.valueOf(statusList.get(1)));
+			response.setStatusDesc("VALIDATION_FAILED");
+			response.setObject("");
+			
+			httpstatus = HttpStatus.EXPECTATION_FAILED;
+			
+		}
+		if(statusList.get(1).equals(3000))
+		{
+			response.setMessage(statusList.get(0));
+			response.setStatusCode(Integer.valueOf(statusList.get(1)));
+			response.setStatusDesc("BAD_REQUEST");
+			response.setObject("");
+			
+			httpstatus = HttpStatus.BAD_REQUEST;
+		}
+		return new ResponseEntity<>(response, httpstatus);
 
 		
-		return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);*/
 	}
+}
 	
 

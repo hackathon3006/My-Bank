@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.mybank.bank.entity.Account;
 import com.mybank.bank.entity.Transaction;
 import com.mybank.bank.exception.CustomException;
 
@@ -13,7 +14,7 @@ import com.mybank.bank.exception.CustomException;
 public interface TransactionService {
 	
 	Long transfer(Long fromAccountNumber, Long toAccountNumber, Double amount, String remarks) throws CustomException, SQLDataException, Exception;
-	public List<Transaction> getAllBetweenDates(LocalDateTime startDate, LocalDateTime endDate);
+	List<Transaction> getAllBetweenDates(Account fromAccount, String transactionType, LocalDateTime fromDate, LocalDateTime toDate, String status);
 	
 
 }
