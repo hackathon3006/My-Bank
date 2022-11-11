@@ -42,7 +42,6 @@ public class AccountController {
 	public ResponseEntity<ResponseData> accountSummary(@PathVariable("customer_id")Long customerId) {
 
 		AccountSummary accountSummary = accountService.getAccountDetailsSummary(customerId);
-		
 		ResponseData response = new ResponseData();
 		response.setMessage("Account details are as follows: ");
 		response.setObject(accountSummary);
